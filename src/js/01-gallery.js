@@ -7,26 +7,16 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 const imageGalleryContainer = document.querySelector('.gallery');
 const imageGalleryMarkup = createImageGalleryMarkup(galleryItems);  
 
-let instance = '';
-
 imageGalleryContainer.insertAdjacentHTML('beforeend', imageGalleryMarkup);
 function createImageGalleryMarkup (galleryItems) {
     return galleryItems.map(({preview, original, description}) => {
-     return  `<div class="gallery__item">
-     <a class="gallery__link" href="${original}">
-     <img
-       class="gallery__image"
-       src="${preview}"
-       data-source="${original}"
-       alt="${description}"
-     />
-     </a>
-     </div>
+     return  `<a class="gallery__item" href="${original}">
+     <img class="gallery__image" src="${preview}" alt="${description}" />
+   </a>
      `;  
     }).join('');
 }
 
-// слухач кліку (перевірка на те, що клік саме по необхідній області)
 imageGalleryContainer.addEventListener('click', onImageGalleryContainerClick);
 
 function onImageGalleryContainerClick (evt) {
@@ -35,24 +25,16 @@ function onImageGalleryContainerClick (evt) {
     if (!evt.target.classList.contains('gallery__image')){
         return;
     }
-    const originImage = evt.target.dataset.source;
+ //   const originImage = evt.target.dataset.source;
 
-    createModalWindow(originImage);
+    createImageSlideShowlWindow();
 }
-// функція відкриття модального вікна
-function createModalWindow(originImage) {
-    instance = basicLightbox.create(`<img src="${originImage}" width="800" height="600">`,
-{onShow: () => window.addEventListener('keydown', onEscapeButtonKeyPress),
- onClose: () => window.addEventListener('keydown', onEscapeButtonKeyPress),
+
+function createImageSlideShowlWindow() {
+const lightbox = new SimpleLightbox('.gallery a', 
+{ captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+  
 });
-instance.show();
 }
-// слухач кліку на ЕСКЕЙП
-
-function onEscapeButtonKeyPress(evt){
-    if (evt.code !== 'Escape') {
-        return;
-    } 
-   instance.close();   
-} 
-
