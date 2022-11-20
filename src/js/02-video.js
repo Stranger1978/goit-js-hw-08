@@ -21,7 +21,7 @@ player.setCurrentTime(localStorage.getItem(keyLS));
 }
 
 
-// якщо відео переглянуто повністю - видаляємо з Local Storage інформацію по ключу
+// ПОКИ ЩО НЕ ПРАЦЮЄ якщо відео переглянуто повністю - видаляємо з Local Storage інформацію по ключу
 
 //function clearLocalStorage(duration) {
 //    if (Math.round(localStorage.getItem(keyLS)) === Math.round(duration)) {
